@@ -16,10 +16,10 @@ import {
   setCustomerLastName
 } from '../../store/actions/rent'
 
-import classes from "./car-info.css";
+import classes from "./order-car.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-class CarInfo extends Component{
+class OrderCar extends Component{
   componentDidMount() {
     if (!this.props.cars) {
       this.props.history.push('/');
@@ -147,4 +147,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(CarInfo));
+export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(OrderCar));

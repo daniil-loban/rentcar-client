@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import CarList from './containers/car-list/car-list'
-import CarInfo from './components/car-info/car-info'
+import OrderCar from './components/order-car/order-car'
 import Header from './components/header/header'
 import SearchPanel from './containers/search-panel/search-panel'
 import classes from './App.css';
@@ -57,7 +57,7 @@ class App extends Component {
     ) 
     let mainContent = (
       <Switch>
-        <Route path="/car/:id" component={CarInfo}/>
+        <Route path="/car/:id" component={OrderCar}/>
         <Route path="/park" component={CarList}/>
         <Route path="/conditions" component={Conditions}/>
         <Route path="/contacts" component={Contacts}/>
