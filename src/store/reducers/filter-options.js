@@ -4,17 +4,6 @@ import {
   CLEAR_FILTER_SELECTED_OPTIONS
 } from '../actions/actionTypes.js'
 
-const clear =  {
-  model:"",
-  price:"",
-  year:"",
-  seats:"",
-  bags:"",
-  doors:"",
-  ac:"",
-  tms:"",
-}
-
 const initialState = {
   filterOptions: null,
   selectedFilter: {
@@ -73,7 +62,7 @@ export default function filterOptionsReducer(state = initialState, action) {
     case CLEAR_FILTER_SELECTED_OPTIONS:
       return {
         ...state,
-        selectedFilter: clear
+        selectedFilter: initialState.selectedFilter
       }
 
     case SET_FILTER_OPTIONS:
