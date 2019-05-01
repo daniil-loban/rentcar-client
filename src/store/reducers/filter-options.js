@@ -1,7 +1,19 @@
 import {
   SET_FILTER_OPTIONS,
-  UPDATE_FILTER
+  UPDATE_FILTER,
+  CLEAR_FILTER_SELECTED_OPTIONS
 } from '../actions/actionTypes.js'
+
+const clear =  {
+  model:"",
+  price:"",
+  year:"",
+  seats:"",
+  bags:"",
+  doors:"",
+  ac:"",
+  tms:"",
+}
 
 const initialState = {
   filterOptions: null,
@@ -58,6 +70,12 @@ const agregate = arr => {
 
 export default function filterOptionsReducer(state = initialState, action) {
   switch(action.type) {
+    case CLEAR_FILTER_SELECTED_OPTIONS:
+      return {
+        ...state,
+        selectedFilter: clear
+      }
+
     case SET_FILTER_OPTIONS:
       const fo = agregate(action.cars)
       return {

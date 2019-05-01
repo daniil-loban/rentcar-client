@@ -2,7 +2,8 @@ import {
   FETCH_CARS_START,
   FETCH_CARS_SUCCESS,
   FETCH_CARS_ERROR,
-  APPLY_FILTER
+  APPLY_FILTER,
+  RESET_FILTER
 } from '../actions/actionTypes.js'
 
 const initialState = {
@@ -36,6 +37,11 @@ export default function baseReducer(state=initialState, action) {
         ...state,
         filteredCars:action.filteredCars
       }
+    case RESET_FILTER:
+      return {
+        ...state,
+        filteredCars:action.filteredCars
+    }  
     default:
       return state
   }

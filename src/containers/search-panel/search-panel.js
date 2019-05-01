@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import Select from '../../components/UI/select/select'
 import classes from './search-panel.css'
 import {connect} from 'react-redux'
-import {setFilterOptions, setSelectedFilter} from '../../store/actions/filter-options'
+import {
+  setFilterOptions,
+  setSelectedFilter,
+  clearFilterSelectedOptions
+} from '../../store/actions/filter-options'
 
 const propByPath = {
   'model': { key: 'model', label:'Марка'},
@@ -36,6 +40,10 @@ class SearchPanel extends Component {
     : null
   }
 
+  handlerOnClickClearFilter =(event) => {
+    this.props.clearFilterSelectedOptions(this.props.cars)
+  }
+
   render() {
     let select=[] 
     if (this.props.cars && this.props.filterOptions) {    
@@ -46,6 +54,13 @@ class SearchPanel extends Component {
     return (
       <div ref={this.props.searchPanelRef} 
           style={this.props.searchPanelStyle} className={classes.searchPanel}>
+        { (this.props.filteredCars.length < this.props.cars.length) && 
+          <button 
+            className ={classes.clearFilter}
+            onClick={this.handlerOnClickClearFilter}>
+          Сбросить фильтр
+          </button>
+        }
         {select}
       </div>
     )
@@ -55,6 +70,7 @@ class SearchPanel extends Component {
 function mapStateToProps(state){
   return {
     cars: state.base.cars,
+    filteredCars: state.base.filteredCars,
     filterOptions: state.filterOptions.filterOptions,
     selectedFilter: state.filterOptions.selectedFilter
   } 
@@ -63,7 +79,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return {
     setFilterOptions:(cars) => dispatch(setFilterOptions(cars)),
-    setSelectedFilter:(name, value) =>dispatch(setSelectedFilter(name, value))
+    setSelectedFilter:(name, value) =>dispatch(setSelectedFilter(name, value)),
+    clearFilterSelectedOptions:(cars) => dispatch(clearFilterSelectedOptions(cars))
   }
 }
 

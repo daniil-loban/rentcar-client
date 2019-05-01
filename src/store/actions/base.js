@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   FETCH_CARS_SUCCESS,
   FETCH_CARS_ERROR,
-  APPLY_FILTER
+  APPLY_FILTER,
+  RESET_FILTER
 } from './actionTypes.js'
 import {setFilterOptions} from './filter-options';
 import {deepValue} from '../../helpers/objectHelper'
@@ -50,6 +51,13 @@ export function applyFilter(filteredCars) {
   return {
     type:APPLY_FILTER,
     filteredCars
+  }
+}
+
+export function resetFilter(cars) {
+  return {
+    type:RESET_FILTER,
+    filteredCars:cars
   }
 }
 
