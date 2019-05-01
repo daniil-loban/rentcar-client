@@ -1,0 +1,14 @@
+.image {
+  position: relative;
+}
+
+.title {
+  background: rgba(0, 0, 0, .5);
+  padding: 5px;
+  color: #fff;
+  position:absolute;
+  left:10;
+  bottom:0;
+  font-size: .9em;
+  font-weight: bold;
+}

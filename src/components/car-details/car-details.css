@@ -1,0 +1,84 @@
+@font-face {
+  font-family: 'stm-rental';
+  src: local('stm-rental'), url('../../fonts/rental/stm-rental.eot?n3cuvz');
+  src: local('stm-rental'), url('../../fonts/rental/stm-rental.eot?n3cuvz#iefix') format('embedded-opentype'),
+  url('../../fonts/rental/stm-rental.ttf?n3cuvz') format('truetype'),
+  url('../../fonts/rental/stm-rental.woff?n3cuvz') format('woff'),
+  url('../../fonts/rental/stm-rental.svg?n3cuvz#stm-rental') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+	font-family: 'stm-icon';
+	src: local('stm-icon'), url('../../fonts/rental/stm-icon.eot?oyuy2n');
+  src: local('stm-icon'), url('../../fonts/rental/stm-icon.eot?oyuy2n#iefix') format('embedded-opentype'), 
+  url('../../fonts/rental/stm-icon.ttf?oyuy2n') format('truetype'), 
+  url('../../fonts/rental/stm-icon.woff?oyuy2n') format('woff'), 
+  url('../../fonts/rental/stm-icon.svg?oyuy2n#stm-icon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class*="car-details__stm-rental"] { 
+  font-family: 'stm-rental' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  padding-right: .5em;
+  color: goldenrod;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class*="car-details__stm-icon"] {   
+  font-family: 'stm-icon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  padding-right: .5em;
+  color: goldenrod;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.stm-icon-transmission::before {
+  content: "\e80d";
+}
+
+.stm-rental-ac:before {
+  content: "\e909";
+}
+
+.stm-rental-door:before {
+  content: "\e90a";
+}
+
+.stm-rental-bag:before {
+  content: "\e900";
+}
+
+.stm-rental-chair_rent:before {
+  content: "\e901";
+}
+
+.stm-rental-seats:before {
+  content: "\e905";
+}
+
+ul.details {
+  list-style: none;
+  padding-inline-start: 0px;
+  margin: 0;
+  padding: 0;
+}
+
+.details li {
+  padding: 5px 15px;
+  margin: 0;
+}

@@ -1,0 +1,36 @@
+header.header {
+  background: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  flex-wrap: wrap;
+}
+
+.navlist {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  flex-wrap: wrap;
+} 
+
+.navlist li {
+  margin-right: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+nav h1.logo {
+  display: inline-block;
+}

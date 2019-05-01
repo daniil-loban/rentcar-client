@@ -1,0 +1,9 @@
+.searchPanel{
+  position: static;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #333;
+  color: #fff;
+  width: 100%;
+}
