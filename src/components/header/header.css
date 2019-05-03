@@ -1,10 +1,9 @@
-header.header {
+.header {
   background: #333;
   color: white;
   display: flex;
   flex-direction: column;
 }
-
 
 .navigation {
   display: flex;
@@ -25,12 +24,16 @@ header.header {
   flex-wrap: wrap;
 } 
 
-.navlist li {
-  margin-right: 30px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+.navigation__link {
+  margin: 5px 15px;
+  color: white;
+  text-decoration: none;
 }
+.navigation__link:hover {
+  color: goldenrod;
+} 
 
-nav h1.logo {
-  display: inline-block;
+.logo {
+  color: white;
+  text-decoration: none;
 }

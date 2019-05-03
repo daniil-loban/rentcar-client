@@ -1,7 +1,11 @@
-export function deepValue(obj, path) {
-  for (let i=0, paths = path.split('.'), len = paths.length; i < len; i += 1){
+export function deepValue(object, path) {
+  let obj = { ...object };
+  const paths = path.split('.');
+  for (let i = 0; i < paths.length; i += 1) {
     obj = obj[paths[i]];
-    if (!obj) return obj 
-  };
+    if (!obj) return obj;
+  }
   return obj;
 }
+
+export const some = () => null;

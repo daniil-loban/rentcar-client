@@ -1,10 +1,11 @@
 
 import React, {Component} from 'react';
 import DatePicker from "react-datepicker";
-import {withRouter} from 'react-router-dom';
+import {withRouter, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import CarCard from '../car-card/car-card';
-import { NavLink } from 'react-router-dom';
+import classes from "./order-car.css";
 
 import {
   selectCar, 
@@ -16,51 +17,77 @@ import {
   setCustomerLastName
 } from '../../store/actions/rent'
 
-import classes from "./order-car.css";
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 class OrderCar extends Component{
   componentDidMount() {
-    if (!this.props.cars) {
-      this.props.history.push('/');
+    const {cars, history, selectCar: callSelectCar, match} = this.props;
+    if (!cars) {
+      history.push('/');
     }
-    this.props.selectCar(this.props.match.params.id-1)
+    callSelectCar(match.params.id-1)
   } 
 
   handlerOnChangeStartDate = (date) => {
-    this.props.setStartDate(date);
+    const {setStartDate: callSetStartDate} = this.props;
+    callSetStartDate(date);
   }
 
   handlerOnChangeEndDate = (date) => {
-    this.props.setEndDate(date);
+    const{setEndDate: callsetEndDate } = this.props;
+    callsetEndDate(date);
   }
 
   handlerOnChangeFirstName = (event) => {
-    this.props.setCustomerFirstName(event.target.value);
+    const{setCustomerFirstName: callSetCustomerFirstName } = this.props;
+    callSetCustomerFirstName(event.target.value);
   }
 
   handlerOnChangeLastName = (event) => {
-    this.props.setCustomerLastName(event.target.value);
+    const {setCustomerLastName: callSetCustomerLastName} = this.props;
+    callSetCustomerLastName(event.target.value);
   }
 
   handlerOnSubmit = (event) => {
     event.preventDefault();
-    console.log('submiting');
-    this.props.rentCar({
-      carId: this.props.match.params.id-1,
-      startDate: this.props.startDate,
-      endDate: this.props.endDate,
+    const { 
+      rentCar: callRentCar,
+      match,
+      startDate,
+      endDate,
+      customerFirstName,
+      customerLastName
+    } = this.props;
+
+    callRentCar ({
+      carId: match.params.id-1,
+      startDate,
+      endDate,
       userData: {
-        firstName: this.props.customerFirstName,
-        lastName: this.props.customerLastName,
+        firstName: customerFirstName,
+        lastName: customerLastName,
       }
     });
   }
 
   render (){
-    if (!this.props.cars) return null;
+    
 
-    const car = this.props.cars[this.props.match.params.id-1];
+    const {
+      isAgreeWithCondition, 
+      customerFirstName, 
+      customerLastName,
+      startDate,
+      endDate,
+      isFormValid,
+      cars,
+      match
+    } = this.props;
+
+    if (!cars) return null;
+
+    const car = cars[match.params.id-1];
+    
+
     return (
       <form className={classes.rentForm} onSubmit={this.handlerOnSubmit}>
         <p className ={classes.caption}>Оформление заказа</p>
@@ -75,8 +102,8 @@ class OrderCar extends Component{
           Ваше Имя*&nbsp;
           <input 
             type="text"
-            placeholder={"введите ваше имя"}
-            value={this.props.customerFirstName}
+            placeholder="введите ваше имя"
+            value={customerFirstName}
             onChange ={this.handlerOnChangeFirstName}
           />
         </div>  
@@ -84,18 +111,18 @@ class OrderCar extends Component{
           Вашa Фамилия*&nbsp; 
           <input
             type="text"
-            placeholder={"введите вашу фамилию"}
-            value={this.props.customerLastName}
+            placeholder="введите вашу фамилию"
+            value={customerLastName}
             onChange ={this.handlerOnChangeLastName}
           />
         </div>  
         <div>
         Дата аренды*&nbsp;
         <DatePicker 
-          selected={this.props.startDate} 
+          selected={startDate} 
           selectsStart
-          startDate={this.props.startDate}
-          endDate={this.props.endDate}
+          startDate={startDate}
+          endDate={endDate}
           onChange = {this.handlerOnChangeStartDate}
           dateFormat="dd/MM/yyyy"
           minDate={new Date()}
@@ -104,19 +131,19 @@ class OrderCar extends Component{
         <div>
         Дата возврата*&nbsp;
         <DatePicker 
-          selected={this.props.endDate} 
+          selected={endDate} 
           selectsEnd
-          startDate={this.props.startDate}
-          endDate={this.props.endDate}
+          startDate={startDate}
+          endDate={endDate}
           onChange = {this.handlerOnChangeEndDate}
           dateFormat="dd/MM/yyyy"
-          minDate={this.props.startDate}
+          minDate={startDate}
         />
         </div>
         {
-          this.props.isAgreeWithCondition 
-          ? <input type="submit" value="Оформить" disabled={!this.props.isFormValid}/>
-          : <NavLink to={'/conditions'}>Подвердите согласие с условиями аренды*</NavLink>
+          isAgreeWithCondition 
+          ? <input type="submit" value="Оформить" disabled={!isFormValid}/>
+          : <NavLink to='/conditions'>Подвердите согласие с условиями аренды*</NavLink>
         }
       </form>
     )

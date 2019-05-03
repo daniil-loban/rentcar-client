@@ -1,7 +1,7 @@
 import React from'react';
 import classes from './contact.css'
 
-const Contacts = (props) => {
+const Contacts = (/* props */) => {
   return (
     <div className={classes.content}>
       <p>Адрес:</p>

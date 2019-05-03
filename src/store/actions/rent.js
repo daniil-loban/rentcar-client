@@ -10,20 +10,8 @@ import {
   SET_START_DATE,
   SET_VALIDATE_STATUS
   
-} from './actionTypes.js'
+} from './actionTypes.ts'
 
-
-function validate () {
-  return (dispatch, getState)=> {
-    const props = getState().rent;
-    const isFormValid =
-    (props.startDate instanceof Date && !isNaN(props.startDate.valueOf())) &&
-    (props.endDate instanceof Date && !isNaN(props.endDate.valueOf())) &&
-    (props.customerFirstName.trim() !== '') &&
-    (props.customerLastName.trim() !== '')
-    dispatch(setValidateStatus(isFormValid))
-  }  
-}
 
 export function setValidateStatus(isFormValid) {
   return {
@@ -31,6 +19,23 @@ export function setValidateStatus(isFormValid) {
     isFormValid
   }
 }
+
+
+function validate () {
+  return (dispatch, getState)=> {
+    const props = getState().rent;
+    const isFormValid =
+    
+    // eslint-disable-next-line no-restricted-globals
+    (props.startDate instanceof Date && !isNaN(props.startDate.valueOf())) &&
+    // eslint-disable-next-line no-restricted-globals
+    (props.endDate instanceof Date && !isNaN(props.endDate.valueOf())) &&
+    (props.customerFirstName.trim() !== '') &&
+    (props.customerLastName.trim() !== '')
+    dispatch(setValidateStatus(isFormValid))
+  }  
+}
+
 
 export function setPreValidateCustomerFirstName(firstName) {
   return {
@@ -124,10 +129,10 @@ export function rentCar(data) {
       url: '/rent',
       data,
       config: { headers: {'Content-Type': 'application/javascript' }}
-    }).then(function (response) {
+    }).then((response) => {
       dispatch(rentCarSuccess(response.data)) 
     })
-    .catch(function (error) {
+    .catch((error) => {
       dispatch(rentCarError(error))
     });
   }

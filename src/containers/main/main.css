@@ -19,7 +19,7 @@
   height: 300px;
 }
 
-[class*="stm-template-car_rental"] {
+[class*='stm-template-car_rental'] {
   font-family: 'stm-rental';
   font-style: normal;
   font-weight: normal;
@@ -44,20 +44,20 @@
   position: absolute;
   right: -18px;
   bottom: -30px;
-  font-size: 114px;
-  z-index: 0;
   color: #f0c540;
   -webkit-transform: rotate(3deg);
   transform: rotate(3deg);
+  font-size: 114px;
+  z-index: 0;
 }
 
 .stm-rental-baloon_tail:before {
   font-family: 'stm-rental';
-  content: "\e908";
+  content: '\e908';
 }
 
-
-.stm-template-car_rental .stm_text_baloon, .inner {
+.stm-template-car_rental .stm_text_baloon,
+.inner {
   position: relative;
   left: 18px;
   top: -11px;

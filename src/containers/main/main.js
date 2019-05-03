@@ -1,12 +1,13 @@
 import React from 'react'
 import classes from './main.css'
+
 const Main = () => {
   return (
     <div className={classes.poster}>
       <div className={classes["stm-template-car_rental"]}>
         <div className={classes.baloon}>
-          <div className={classes["stm_text_baloon"]}>
-            <div className={classes["inner"]}>
+          <div className={classes.stm_text_baloon}>
+            <div className={classes.inner}>
                     
               <h2><span style={{color: '#ffffff', fontSize: '36pt'}}>5-50%</span></h2>
               <h2><span style={{color: '#273f44'}}>СКИДКА</span></h2>

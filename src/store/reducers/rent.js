@@ -8,7 +8,7 @@ import {
   RENT_CAR_SUCCESS,
   RENT_CAR_ERROR,
   SET_VALIDATE_STATUS
-} from './../actions/actionTypes.js'
+} from '../actions/actionTypes.ts'
 
 const initialState = {
   isRented: false,

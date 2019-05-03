@@ -2,15 +2,16 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom';
 import classes from './conditions.css'
-import {agreeWithConditions} from '../../store/actions/rent'
+import {agreeWithConditions as agree} from '../../store/actions/rent'
 
 
 class Conditions extends Component {
 
-  agreeWithConditions = (event) =>{
-    this.props.agreeWithConditions(true);
-    if (this.props.selectedCarId !== -1) {
-      this.props.history.push(`/car/${this.props.selectedCarId + 1}`)
+  handlerAgreeWithConditions = () => {
+    const { agreeWithConditions, selectedCarId, history } = this.props
+    agreeWithConditions(true);
+    if (selectedCarId !== -1) {
+      history.push(`/car/${selectedCarId + 1}`)
     }
   }
 
@@ -107,7 +108,7 @@ class Conditions extends Component {
             <li>водительское удостоверение, талон, паспорт водителя</li>
           </ul>
         </div>
-        <button onClick={this.agreeWithConditions}>Я принимаю условия</button>
+        <button type="submit" onClick={this.handlerAgreeWithConditions}>Я принимаю условия</button>
       </div>
       
     )
@@ -123,7 +124,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch) {
   return {
-    agreeWithConditions:(isAgree) => dispatch(agreeWithConditions(isAgree))
+    agreeWithConditions:(isAgree) => dispatch(agree(isAgree))
   }
 }
 

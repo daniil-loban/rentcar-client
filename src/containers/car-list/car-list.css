@@ -1,9 +1,14 @@
-.content {
-  position: relative;
+.car_list {
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
+  position: relative;
   width: 90%;
   margin: 0 auto;
+  align-content: center;
+  justify-content: center;
+}
+
+.car_list__item {
+  color: black;
+  text-decoration: none;
 }
