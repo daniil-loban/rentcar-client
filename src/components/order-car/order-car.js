@@ -1,55 +1,53 @@
-
-import React, {Component} from 'react';
-import DatePicker from "react-datepicker";
-import {withRouter, NavLink} from 'react-router-dom';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import DatePicker from 'react-datepicker';
+import { withRouter, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import CarCard from '../car-card/car-card';
-import classes from "./order-car.css";
+import classes from './order-car.css';
 
 import {
-  selectCar, 
+  selectCar,
   agreeWithConditions,
   rentCar,
   setStartDate,
-  setEndDate, 
+  setEndDate,
   setCustomerFirstName,
   setCustomerLastName
-} from '../../store/actions/rent'
+} from '../../store/actions/rent';
 
-
-class OrderCar extends Component{
+class OrderCar extends Component {
   componentDidMount() {
-    const {cars, history, selectCar: callSelectCar, match} = this.props;
+    const { cars, history, selectCar: callSelectCar, match } = this.props;
     if (!cars) {
       history.push('/');
     }
-    callSelectCar(match.params.id-1)
-  } 
+    callSelectCar(match.params.id - 1);
+  }
 
-  handlerOnChangeStartDate = (date) => {
-    const {setStartDate: callSetStartDate} = this.props;
+  handlerOnChangeStartDate = date => {
+    const { setStartDate: callSetStartDate } = this.props;
     callSetStartDate(date);
-  }
+  };
 
-  handlerOnChangeEndDate = (date) => {
-    const{setEndDate: callsetEndDate } = this.props;
+  handlerOnChangeEndDate = date => {
+    const { setEndDate: callsetEndDate } = this.props;
     callsetEndDate(date);
-  }
+  };
 
-  handlerOnChangeFirstName = (event) => {
-    const{setCustomerFirstName: callSetCustomerFirstName } = this.props;
+  handlerOnChangeFirstName = event => {
+    const { setCustomerFirstName: callSetCustomerFirstName } = this.props;
     callSetCustomerFirstName(event.target.value);
-  }
+  };
 
-  handlerOnChangeLastName = (event) => {
-    const {setCustomerLastName: callSetCustomerLastName} = this.props;
+  handlerOnChangeLastName = event => {
+    const { setCustomerLastName: callSetCustomerLastName } = this.props;
     callSetCustomerLastName(event.target.value);
-  }
+  };
 
-  handlerOnSubmit = (event) => {
+  handlerOnSubmit = event => {
     event.preventDefault();
-    const { 
+    const {
       rentCar: callRentCar,
       match,
       startDate,
@@ -58,23 +56,21 @@ class OrderCar extends Component{
       customerLastName
     } = this.props;
 
-    callRentCar ({
-      carId: match.params.id-1,
+    callRentCar({
+      carId: match.params.id - 1,
       startDate,
       endDate,
       userData: {
         firstName: customerFirstName,
-        lastName: customerLastName,
+        lastName: customerLastName
       }
     });
-  }
+  };
 
-  render (){
-    
-
+  render() {
     const {
-      isAgreeWithCondition, 
-      customerFirstName, 
+      isAgreeWithCondition,
+      customerFirstName,
       customerLastName,
       startDate,
       endDate,
@@ -84,73 +80,72 @@ class OrderCar extends Component{
     } = this.props;
 
     if (!cars) return null;
-
-    const car = cars[match.params.id-1];
-    
-
+    const car = cars[match.params.id - 1];
     return (
       <form className={classes.rentForm} onSubmit={this.handlerOnSubmit}>
-        <p className ={classes.caption}>Оформление заказа</p>
+        <p className={classes.rentForm__caption}>Оформление заказа</p>
         <div>
           <CarCard
-            model = {car.model}
-            price = {car.price}
-            properties = {car.properties}
+            model={car.model}
+            price={car.price}
+            properties={car.properties}
           />
-        </div>  
+        </div>
         <div>
           Ваше Имя*&nbsp;
-          <input 
+          <input
             type="text"
             placeholder="введите ваше имя"
             value={customerFirstName}
-            onChange ={this.handlerOnChangeFirstName}
+            onChange={this.handlerOnChangeFirstName}
           />
-        </div>  
+        </div>
         <div>
-          Вашa Фамилия*&nbsp; 
+          Вашa Фамилия*&nbsp;
           <input
             type="text"
             placeholder="введите вашу фамилию"
             value={customerLastName}
-            onChange ={this.handlerOnChangeLastName}
+            onChange={this.handlerOnChangeLastName}
           />
-        </div>  
-        <div>
-        Дата аренды*&nbsp;
-        <DatePicker 
-          selected={startDate} 
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
-          onChange = {this.handlerOnChangeStartDate}
-          dateFormat="dd/MM/yyyy"
-          minDate={new Date()}
-        />
         </div>
         <div>
-        Дата возврата*&nbsp;
-        <DatePicker 
-          selected={endDate} 
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          onChange = {this.handlerOnChangeEndDate}
-          dateFormat="dd/MM/yyyy"
-          minDate={startDate}
-        />
+          Дата аренды*&nbsp;
+          <DatePicker
+            selected={startDate}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            onChange={this.handlerOnChangeStartDate}
+            dateFormat="dd/MM/yyyy"
+            minDate={new Date()}
+          />
         </div>
-        {
-          isAgreeWithCondition 
-          ? <input type="submit" value="Оформить" disabled={!isFormValid}/>
-          : <NavLink to='/conditions'>Подвердите согласие с условиями аренды*</NavLink>
-        }
+        <div>
+          Дата возврата*&nbsp;
+          <DatePicker
+            selected={endDate}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            onChange={this.handlerOnChangeEndDate}
+            dateFormat="dd/MM/yyyy"
+            minDate={startDate}
+          />
+        </div>
+        {isAgreeWithCondition ? (
+          <input type="submit" value="Оформить" disabled={!isFormValid} />
+        ) : (
+          <NavLink to="/conditions">
+            Подвердите согласие с условиями аренды*
+          </NavLink>
+        )}
       </form>
-    )
+    );
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     cars: state.base.cars,
     isAgreeWithCondition: state.rent.isAgreeWithCondition,
@@ -159,19 +154,25 @@ function mapStateToProps (state) {
     customerFirstName: state.rent.customerFirstName,
     customerLastName: state.rent.customerLastName,
     isFormValid: state.rent.isFormValid
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectCar:(id) => dispatch(selectCar(id)),
-    agreeWithConditions: (isAgree) =>dispatch(agreeWithConditions(isAgree)),
-    rentCar:(data) => dispatch(rentCar(data)),
-    setStartDate:(date) => dispatch(setStartDate(date)),
-    setEndDate:(date) => dispatch(setEndDate(date)), 
-    setCustomerFirstName:(firstName) => dispatch(setCustomerFirstName(firstName)),
-    setCustomerLastName:(lastName) => dispatch(setCustomerLastName(lastName)) 
-  }
+    selectCar: id => dispatch(selectCar(id)),
+    agreeWithConditions: isAgree => dispatch(agreeWithConditions(isAgree)),
+    rentCar: data => dispatch(rentCar(data)),
+    setStartDate: date => dispatch(setStartDate(date)),
+    setEndDate: date => dispatch(setEndDate(date)),
+    setCustomerFirstName: firstName =>
+      dispatch(setCustomerFirstName(firstName)),
+    setCustomerLastName: lastName => dispatch(setCustomerLastName(lastName))
+  };
 }
 
-export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(OrderCar));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(OrderCar)
+);

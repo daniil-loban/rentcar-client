@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Select from '../../components/UI/select/select';
 import classes from './search-panel.css';
-
-import { setFilterOptions } from '../../store/actions/base';
 import {
   setSelectedFilter,
   clearFilterSelectedOptions
@@ -24,16 +22,12 @@ class SearchPanel extends Component {
   static defaultProps = {};
 
   selectChangeHandler = event => {
-    const {
-      setSelectedFilter: callSetSelectedFilter
-      // filteredCars,
-      // setFilterOptions: callSetFilterOptions
-    } = this.props;
+    const { setSelectedFilter: callSetSelectedFilter } = this.props;
     callSetSelectedFilter(event.target.id, event.target.value);
-    // callSetFilterOptions(filteredCars);
   };
 
   createFilledSelector = (key, label, optionsArr) => {
+    if (!optionsArr) return null;
     const { selectedFilter } = this.props;
     return optionsArr.length > 1 ? (
       <Select
@@ -59,12 +53,10 @@ class SearchPanel extends Component {
 
   render() {
     if (!this.props) return null;
+    const { cars, filterOptions, searchPanelStyle, filteredCars } = this.props;
+    if (!filteredCars) return null;
 
     const select = [];
-
-    const { cars, filterOptions, searchPanelStyle, filteredCars } = this.props;
-    // console.log('PROPS', this.props);
-
     if (cars && filterOptions) {
       Object.keys(propByPath).forEach(key => {
         select.push(
@@ -104,7 +96,6 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  setFilterOptions,
   setSelectedFilter,
   clearFilterSelectedOptions
 };

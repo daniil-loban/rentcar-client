@@ -5,8 +5,7 @@
 .poster {
   background: url('../../assets/img/car_poster.jpg');
   background-repeat: no-repeat;
-  background-position-x: 50%;
-  background-position-y: 80%;
+  background-position: 50% 80%;
   background-size: cover;
   height: 560px;
 }

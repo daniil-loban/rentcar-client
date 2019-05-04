@@ -12,7 +12,7 @@ export function clearFilterSelectedOptions(cars) {
   return dispatch => {
     dispatch(setFilterOptions(cars));
     dispatch(clearSelectedOptions());
-    dispatch(resetFilter(cars));
+    dispatch(resetFilter());
   };
 }
 

@@ -44,6 +44,7 @@ const sortByType = arr => {
 };
 
 const agregate = arr => {
+  if (!arr) return null;
   const result = arr.reduce((acc, e) => {
     const flat = getFlatObject(e);
     Object.keys(flat).forEach(path => {
@@ -60,13 +61,16 @@ const agregate = arr => {
   Object.keys(result).forEach(key => {
     result[key] = result[key].sort(sortByType(arr));
   });
+  // console.log(arr);
+  // console.log(result);
   return result;
 };
 
 export function setFilterOptions(cars) {
   return {
     type: SET_FILTER_OPTIONS,
-    cars: agregate(cars)
+    // cars: agregate(cars)
+    filterOptions: agregate(cars)
   };
 }
 

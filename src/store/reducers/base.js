@@ -9,8 +9,8 @@ import {
 
 const initialState = {
   filterOptions: null,
-  filteredCars: [],
-  cars: [],
+  filteredCars: null,
+  cars: null,
   loading: false,
   error: null
 };
@@ -47,7 +47,7 @@ export default function baseReducer(state = initialState, action) {
     case SET_FILTER_OPTIONS:
       return {
         ...state,
-        filterOptions: action.cars
+        filterOptions: action.filterOptions
       };
     default:
       return state;

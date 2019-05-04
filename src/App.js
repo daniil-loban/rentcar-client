@@ -6,7 +6,7 @@ import OrderCar from './components/order-car/order-car';
 import Header from './components/header/header';
 import SearchPanel from './containers/search-panel/search-panel';
 import classes from './App.css';
-import { fetchCars, setFilterOptions } from './store/actions/base';
+import { fetchCars } from './store/actions/base';
 import Contacts from './containers/contacts/contacts';
 import Main from './containers/main/main';
 import Conditions from './components/conditions/conditions';
@@ -17,14 +17,8 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const {
-      fetchCars: callfetchCars,
-
-      setFilterOptions: callSetFilterOptions
-    } = this.props;
+    const { fetchCars: callfetchCars } = this.props;
     callfetchCars();
-    const { cars } = this.props;
-    callSetFilterOptions(cars);
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -96,8 +90,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCars: () => dispatch(fetchCars()),
-    setFilterOptions: cars => dispatch(setFilterOptions(cars))
+    fetchCars: () => dispatch(fetchCars())
   };
 }
 

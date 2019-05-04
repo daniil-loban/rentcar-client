@@ -2,37 +2,28 @@
   display: block;
   margin: 5px;
   padding: 10px;
-  border: 1px solid #aaa;
+  border: 1px solid #aaaaaa;
   border-radius: 5px;
   background: #f0f0f0;
 }
 
-/*
-.carCard:hover {
-  position: relative;
-  left: -2px;
-  top: -2px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, .7);
-}
-*/
-
-.carCard .caption {
-  text-align: center;
+.carCard__caption {
   margin-top: 0;
   margin-bottom: 5px;
+  text-align: center;
 }
 
 .price {
   display: block;
+  padding: 5px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  text-align: center;
   color: #fff;
   background: goldenrod;
-  font-size: .8em;
-  padding: 5px;
-  text-transform: uppercase;
-  text-align: center
 }
 
-.price-value {
+.price__value {
   font-size: 1.5rem;
 }
 

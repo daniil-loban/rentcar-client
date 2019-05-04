@@ -1,18 +1,18 @@
 .rentForm {
   display: flex;
-  flex-direction: column;
-  align-items:flex-end;
   max-width: 420px;
   height: 500px;
+  flex-direction: column;
   margin: 20px auto;
   padding: 10px;
+  align-items: flex-end;
+  justify-content: space-around;
   background-color: #fff;
   border: 1px solid #333;
   border-radius: 5px;
-  justify-content: space-around;
 }
 
-.caption {
+.rentForm__caption {
   align-self: center;
   font-size: 2em;
   margin: 0;
