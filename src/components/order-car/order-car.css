@@ -1,6 +1,6 @@
 .rentForm {
   display: flex;
-  max-width: 450px;
+  max-width: 410px;
   height: 500px;
   flex-direction: column;
   margin: 20px auto;

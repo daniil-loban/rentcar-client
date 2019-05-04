@@ -77,7 +77,7 @@
   content: '\e905';
 }
 
-details {
+ul.details {
   list-style: none;
   padding-inline-start: 0px;
   margin: 0;
