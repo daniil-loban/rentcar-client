@@ -6,7 +6,10 @@ import {
   RESET_FILTER,
   SET_FILTER_OPTIONS
 } from './actionTypes.ts';
-import { deepValue } from '../../helpers/objectHelper';
+import {
+  deepValue,
+  agregateValuesListObjects
+} from '../../helpers/objectHelper';
 
 const pathByKey = {
   model: 'model',
@@ -19,58 +22,11 @@ const pathByKey = {
   tms: 'properties.transmission'
 };
 
-const getFlatObject = (obj, path = '') => {
-  return Object.keys(obj).reduce((acc, e) => {
-    if (obj[e] instanceof Object) {
-      const temp = getFlatObject(
-        obj[e],
-        `${path}${path === '' ? '' : '.'}${e}`
-      );
-      Object.keys(temp).forEach(inner => {
-        acc[`${inner}`] = temp[inner];
-      });
-    } else {
-      acc[`${path}${path === '' ? '' : '.'}${e}`] = obj[e];
-    }
-    return acc;
-  }, {});
-};
-
-const sortByType = arr => {
-  if (typeof arr[0] === 'number') {
-    return (a, b) => a - b;
-  }
-  return (a, b) => (a >= b ? 1 : -1);
-};
-
-const agregate = arr => {
-  if (!arr) return null;
-  const result = arr.reduce((acc, e) => {
-    const flat = getFlatObject(e);
-    Object.keys(flat).forEach(path => {
-      if (acc[path]) {
-        if (!acc[path].includes(flat[path]))
-          acc[path] = acc[path].concat(flat[path]);
-      } else {
-        acc[path] = [flat[path]];
-      }
-    });
-    return acc;
-  }, {});
-
-  Object.keys(result).forEach(key => {
-    result[key] = result[key].sort(sortByType(arr));
-  });
-  // console.log(arr);
-  // console.log(result);
-  return result;
-};
-
 export function setFilterOptions(cars) {
   return {
     type: SET_FILTER_OPTIONS,
     // cars: agregate(cars)
-    filterOptions: agregate(cars)
+    filterOptions: agregateValuesListObjects(cars)
   };
 }
 

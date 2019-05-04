@@ -1,5 +1,4 @@
 import { UPDATE_FILTER, CLEAR_FILTER_SELECTED_OPTIONS } from './actionTypes.ts';
-
 import { applyFilterCars, resetFilter, setFilterOptions } from './base';
 
 export function clearSelectedOptions() {
