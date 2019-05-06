@@ -15,6 +15,9 @@ import {
   setCustomerFirstName,
   setCustomerLastName
 } from '../../store/actions/rent';
+import {RENT_CAR_SUCCESS, RENT_CAR_ERROR} from '../../store/actions/actionTypes.ts'
+
+import { showModal } from '../../store/actions/modal';
 
 class OrderCar extends Component {
   componentDidMount() {
@@ -63,6 +66,20 @@ class OrderCar extends Component {
       userData: {
         firstName: customerFirstName,
         lastName: customerLastName
+      }
+    }).then(response => {
+      const { showModal: showModalAction, history} = this.props;
+      switch (response.type) {
+        case RENT_CAR_SUCCESS:
+          showModalAction('Заказ принят');
+          history.push('/park');
+          break;
+        case RENT_CAR_ERROR:
+          showModalAction('Ошибка сервера');
+          history.push('/park');
+          break;
+        default:
+          break;
       }
     });
   };
@@ -153,7 +170,8 @@ function mapStateToProps(state) {
     endDate: state.rent.endDate,
     customerFirstName: state.rent.customerFirstName,
     customerLastName: state.rent.customerLastName,
-    isFormValid: state.rent.isFormValid
+    isFormValid: state.rent.isFormValid,
+    isRented: state.rent.isRented
   };
 }
 
@@ -166,7 +184,9 @@ function mapDispatchToProps(dispatch) {
     setEndDate: date => dispatch(setEndDate(date)),
     setCustomerFirstName: firstName =>
       dispatch(setCustomerFirstName(firstName)),
-    setCustomerLastName: lastName => dispatch(setCustomerLastName(lastName))
+    setCustomerLastName: lastName => dispatch(setCustomerLastName(lastName)),
+    showModal: (caption, children, action) =>
+      dispatch(showModal(caption, children, action))
   };
 }
 

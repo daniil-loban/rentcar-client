@@ -1,4 +1,6 @@
+// import React from 'react';
 import axios from 'axios';
+
 import {
   AGREE_WITH_CONDITIONS,
   SELECT_CAR,
@@ -9,131 +11,130 @@ import {
   SET_END_DATE,
   SET_START_DATE,
   SET_VALIDATE_STATUS
-  
-} from './actionTypes.ts'
+} from './actionTypes.ts';
 
+// import { showModal } from './modal';
 
 export function setValidateStatus(isFormValid) {
   return {
-    type:SET_VALIDATE_STATUS,
+    type: SET_VALIDATE_STATUS,
     isFormValid
-  }
+  };
 }
 
-
-function validate () {
-  return (dispatch, getState)=> {
+function validate() {
+  return (dispatch, getState) => {
     const props = getState().rent;
     const isFormValid =
-    
-    // eslint-disable-next-line no-restricted-globals
-    (props.startDate instanceof Date && !isNaN(props.startDate.valueOf())) &&
-    // eslint-disable-next-line no-restricted-globals
-    (props.endDate instanceof Date && !isNaN(props.endDate.valueOf())) &&
-    (props.customerFirstName.trim() !== '') &&
-    (props.customerLastName.trim() !== '')
-    dispatch(setValidateStatus(isFormValid))
-  }  
+      // eslint-disable-next-line no-restricted-globals
+      props.startDate instanceof Date &&
+      // eslint-disable-next-line no-restricted-globals
+      !isNaN(props.startDate.valueOf()) &&
+      // eslint-disable-next-line no-restricted-globals
+      (props.endDate instanceof Date && !isNaN(props.endDate.valueOf())) &&
+      props.customerFirstName.trim() !== '' &&
+      props.customerLastName.trim() !== '';
+    dispatch(setValidateStatus(isFormValid));
+  };
 }
-
 
 export function setPreValidateCustomerFirstName(firstName) {
   return {
-    type:SET_CUSTOMER_FIRST_NAME,
+    type: SET_CUSTOMER_FIRST_NAME,
     firstName
-  }
+  };
 }
 
 export function setCustomerFirstName(firstName) {
   return dispatch => {
-    dispatch(setPreValidateCustomerFirstName(firstName)); 
+    dispatch(setPreValidateCustomerFirstName(firstName));
     dispatch(validate());
-  }
+  };
 }
 
 export function setPreValidateCustomerLastName(lastName) {
   return {
-    type:SET_CUSTOMER_LAST_NAME,
+    type: SET_CUSTOMER_LAST_NAME,
     lastName
-  }
+  };
 }
 
 export function setCustomerLastName(lastName) {
   return dispatch => {
-    dispatch(setPreValidateCustomerLastName(lastName)); 
+    dispatch(setPreValidateCustomerLastName(lastName));
     dispatch(validate());
-  }
+  };
 }
 
 export function setPreValidateStartDate(startDate) {
   return {
-    type:SET_START_DATE,
+    type: SET_START_DATE,
     startDate
-  }
+  };
 }
 
 export function setStartDate(startDate) {
   return dispatch => {
-    dispatch(setPreValidateStartDate(startDate)); 
+    dispatch(setPreValidateStartDate(startDate));
     dispatch(validate());
-  }
+  };
 }
 
 export function setPreValidateEndDate(endDate) {
   return {
-    type:SET_END_DATE,
+    type: SET_END_DATE,
     endDate
-  }
+  };
 }
 
 export function setEndDate(endDate) {
   return dispatch => {
-    dispatch(setPreValidateEndDate(endDate)); 
+    dispatch(setPreValidateEndDate(endDate));
     dispatch(validate());
-  }
+  };
 }
-
 
 export function selectCar(id) {
   return {
-    type:SELECT_CAR,
+    type: SELECT_CAR,
     selectedCarId: id
-  }
+  };
 }
 
 export function agreeWithConditions(isAgree) {
   return {
-    type:AGREE_WITH_CONDITIONS,
+    type: AGREE_WITH_CONDITIONS,
     isAgree
-  }
+  };
 }
 
 export function rentCarSuccess(status) {
   return {
-    type:RENT_CAR_SUCCESS,
+    type: RENT_CAR_SUCCESS,
     status
-  }
+  };
 }
 
 export function rentCarError(error) {
   return {
-    type:RENT_CAR_ERROR,
+    type: RENT_CAR_ERROR,
     error
-  }
+  };
 }
 
 export function rentCar(data) {
   return async dispatch => {
-    axios ({
+    return axios({
       method: 'post',
       url: '/rent',
       data,
-      config: { headers: {'Content-Type': 'application/javascript' }}
-    }).then((response) => {
-      dispatch(rentCarSuccess(response.data)) 
+      config: { headers: { 'Content-Type': 'application/javascript' } }
     })
-    .catch((error) => {
-      dispatch(rentCarError(error))
-    });
-  }
+      .then(response => {
+        return dispatch(rentCarSuccess(response.data));
+      })
+      .catch(error => {
+        return dispatch(rentCarError(error));
+      });
+  };
 }
