@@ -24,3 +24,10 @@
   color: #fff;
   font-weight: bold;
 }
+
+.modal__body {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+}

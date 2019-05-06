@@ -15,7 +15,10 @@ import {
   setCustomerFirstName,
   setCustomerLastName
 } from '../../store/actions/rent';
-import {RENT_CAR_SUCCESS, RENT_CAR_ERROR} from '../../store/actions/actionTypes.ts'
+import {
+  RENT_CAR_SUCCESS,
+  RENT_CAR_ERROR
+} from '../../store/actions/actionTypes.ts';
 
 import { showModal } from '../../store/actions/modal';
 
@@ -68,15 +71,20 @@ class OrderCar extends Component {
         lastName: customerLastName
       }
     }).then(response => {
-      const { showModal: showModalAction, history} = this.props;
+      const { showModal: showModalAction, history } = this.props;
       switch (response.type) {
         case RENT_CAR_SUCCESS:
-          showModalAction('Заказ принят');
+          showModalAction('Сообщение', response.status);
           history.push('/park');
           break;
         case RENT_CAR_ERROR:
-          showModalAction('Ошибка сервера');
-          history.push('/park');
+          showModalAction(
+            'Сообщение',
+            `Извините, сервер временно не доступен. 
+            Пожалуйста воспользуйтесь нашими контактами.
+            Спасибо за понимание.`
+          );
+          history.push('/contacts');
           break;
         default:
           break;

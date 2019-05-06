@@ -1,17 +1,16 @@
 import { SHOW_MODAL, HIDE_MODAL } from './actionTypes.ts';
 
-export function showModalAction(caption, children, submitAction) {
+export function showModalAction(caption, message) {
   return {
     type: SHOW_MODAL,
     caption,
-    children,
-    submitAction
+    message
   };
 }
 
-export function showModal(caption) {
+export function showModal(caption, message) {
   return dispatch => {
-    dispatch(showModalAction(caption));
+    dispatch(showModalAction(caption, message));
   };
 }
 
@@ -22,10 +21,8 @@ export function hideModalAction() {
 }
 
 export function hideModal() {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(hideModalAction());
-    const action = getState().modal.submitAction;
-    action();
   };
 }
 
